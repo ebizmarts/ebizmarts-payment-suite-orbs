@@ -4,7 +4,7 @@ description: >
 steps:
   - run:
       name: Install mariadb-client
-      command: sudo apt-get install -qq -y mariadb-client
+      command: sudo apt-get install --allow-unauthenticated -qq -y mariadb-client
   - run:
       name: Add magento2.dev to hosts file
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
