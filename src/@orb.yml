@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Orb for executing pipelines relative to Opayo for Magento 2 Pull Requests
+  Orb for executing pipelines relative to Opayo for Magento 2 Pull Requests.
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
