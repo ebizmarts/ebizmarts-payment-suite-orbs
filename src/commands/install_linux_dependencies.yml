@@ -2,10 +2,10 @@ description: >
   Install system dependencies
 
 parameters:
-  extensions-to-install:
+  extensions_to_install:
     type: string
     default: "bcmath gd intl mcrypt opcache pdo_mysql soap xsl zip"
-  libraries-to-install:
+  libraries_to_install:
     type: string
     default: "libicu-dev libjpeg-dev libmcrypt-dev libpng-dev libwebp-dev libxml2-dev libxpm-dev libxslt-dev libz-dev libzip-dev zlib1g-dev"
 steps:
