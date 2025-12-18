@@ -14,20 +14,20 @@ steps:
       command: sudo apt-get update -qq || sudo apt-get update -qq
   - run:
       name: Set PHP Memory to 1G
-      command: <<include(src/scripts/set_memory_limit_1g.sh)>>
+      command: <<include(scripts/set_memory_limit_1g.sh)>>
   - run:
       name: Install required system libraries
       environment:
         PARAM_LIBRARIES_TO_INSTALL: << parameters.libraries-to-install >>
-      command: <<include(src/scripts/install_sys_libs.sh)>>
+      command: <<include(scripts/install_sys_libs.sh)>>
   - run:
       name: Configure PHP extensions
-      command: <<include(src/scripts/config_php_exts.sh)>>
+      command: <<include(scripts/config_php_exts.sh)>>
   - run:
       name: Install PHP extensions
       environment:
         PARAM_EXTENSIONS_TO_INSTALL: << parameters.extensions-to-install >>
-      command: <<include(src/scripts/install_php_exts.sh)>>
+      command: <<include(scripts/install_php_exts.sh)>>
   - run:
       name: Install MariaDB client
       command: sudo apt-get install -qq -y mariadb-client
@@ -39,7 +39,7 @@ steps:
       command: wget --quiet $MAGENTO_WEB_SERVER_CONF
   - run:
       name: Copy Magento 2 web server configuration file
-      command: <<include(src/scripts/cp_apache_config.sh)>>
+      command: <<include(scripts/cp_apache_config.sh)>>
   - run:
       name: Run sed on apache environment vars
       command: sudo sed -i 's/www-data/circleci/g' /etc/apache2/envvars
@@ -48,4 +48,4 @@ steps:
       command: sudo service apache2 restart
   - run:
       name: Import database dump
-      command: <<include(src/scripts/import_db_dump.sh)>>
+      command: <<include(scripts/import_db_dump.sh)>>

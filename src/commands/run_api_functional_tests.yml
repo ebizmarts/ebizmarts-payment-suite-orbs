@@ -4,4 +4,4 @@ description: >
 steps:
   - run:
       name: Run API functional tests
-      command: <<include(src/scripts/run_api_func_tests.sh)>>
+      command: <<include(scripts/run_api_func_tests.sh)>>

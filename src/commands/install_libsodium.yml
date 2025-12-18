@@ -4,7 +4,7 @@ description: >
 steps:
   - run:
       name: libsodium Download
-      command: <<include(src/scripts/download_libsodium.sh)>>
+      command: <<include(scripts/download_libsodium.sh)>>
   - run:
       name: libsodium Uncompress tar file
       command: tar xvzf libsodium-$LIBSODIUM_VERSION.tar.gz

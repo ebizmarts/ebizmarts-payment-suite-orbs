@@ -7,10 +7,10 @@ steps:
       command: php -v
   - run:
       name: Composer require PHPCS and Magento coding standard
-      command: <<include(src/scripts/install_phpcs.sh)>>
+      command: <<include(scripts/install_phpcs.sh)>>
   - run:
       name: Set installed config paths
-      command: <<include(src/scripts/set_phpcs_config_paths.sh)>>
+      command: <<include(scripts/set_phpcs_config_paths.sh)>>
   - run:
      name: Run PHPCS
-     command: <<include(src/scripts/run_phpcs.sh)>>
+     command: <<include(scripts/run_phpcs.sh)>>

@@ -4,4 +4,4 @@ description: >
 steps:
   - run:
       name: Remove old libsodium and install latest (compiled)
-      command: <<include(src/scripts/reinstall_libsodium.sh)>>
+      command: <<include(scripts/reinstall_libsodium.sh)>>
