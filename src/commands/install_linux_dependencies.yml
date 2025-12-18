@@ -18,7 +18,7 @@ steps:
   - run:
       name: Install required system libraries
       environment:
-        PARAM_LIBRARIES_TO_INSTALL: << parameters.libraries-to-install >>
+        PARAM_LIBRARIES_TO_INSTALL: << parameters.libraries_to_install >>
       command: <<include(scripts/install_sys_libs.sh)>>
   - run:
       name: Configure PHP extensions
@@ -26,7 +26,7 @@ steps:
   - run:
       name: Install PHP extensions
       environment:
-        PARAM_EXTENSIONS_TO_INSTALL: << parameters.extensions-to-install >>
+        PARAM_EXTENSIONS_TO_INSTALL: << parameters.extensions_to_install >>
       command: <<include(scripts/install_php_exts.sh)>>
   - run:
       name: Install MariaDB client
