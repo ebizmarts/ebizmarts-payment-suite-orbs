@@ -7,7 +7,9 @@ parameters:
 steps:
   - run:
       name: Download Magento from ebizmartsbackup S3
-      command: wget --quiet https://ebizmartsbackup.s3.amazonaws.com/Magento<< parameters.version >>-PreCompiled-NoSampleData.tar.gz
+      environment:
+        PARAM_VERSION: << parameters.version >>
+      command: << include(src/scripts/download_magento_from_ebizmarts_backup.sh)>>
   - run:
       name: Rename file to use download-tools
       command: mv Magento<< parameters.version >>-PreCompiled-NoSampleData.tar.gz Magento<< parameters.version >>-PreCompiled.tar.gz
