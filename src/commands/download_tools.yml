@@ -35,7 +35,7 @@ steps:
       command: <<include(scripts/create_opayo_folder.sh)>>
   - run:
       name: Copy Api test data files to folder
-      command: <<include(scripts/copy_api_test_data.sh)>>
+      command: <<include(scripts/cp_api_test_data.sh)>>
   - run:
       name: Copy php unit config file
       command: <<include(scripts/copy_phpunit_config.sh)>>
