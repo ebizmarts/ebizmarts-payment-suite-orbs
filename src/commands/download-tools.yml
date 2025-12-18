@@ -9,7 +9,7 @@ parameters:
 steps:
   - run:
       name: Download PHP Unit
-      command: wget --no-check-certificate https://phar.phpunit.de/phpunit-$PHP_UNIT_VERSION.phar && chmod +x phpunit-$PHP_UNIT_VERSION.phar
+      command: <<include(src/scripts/download_php_unit.sh)>>
   - run:
       name: Decompress Magento
       command: tar xpf Magento<< parameters.version >>-PreCompiled.tar.gz
@@ -32,16 +32,16 @@ steps:
       path: app/code/Ebizmarts/SagePaySuite
   - run:
       name: Create folder for Opayo
-      command: mkdir -p dev/tests/integration/testsuite/Ebizmarts/SagePaySuite/_files
+      command: <<include(src/scripts/create_opayo_folder.sh)>>
   - run:
       name: Copy Api test data files to folder
-      command: cp -r app/code/Ebizmarts/SagePaySuite/Test/Api/_files/* dev/tests/integration/testsuite/Ebizmarts/SagePaySuite/_files
+      command: <<include(src/scripts/copy_api_test_data.sh)>>
   - run:
       name: Copy php unit config file
-      command: cp app/code/Ebizmarts/SagePaySuite/phpunit_config.xml dev/tests/unit/phpunit.xml
+      command: <<include(src/scripts/copy_phpunit_config.sh)>>
   - run:
       name: Copy integration tests config file
-      command: cp app/code/Ebizmarts/SagePaySuite/phpunit_config_integration.xml dev/tests/integration/phpunit.xml
+      command: <<include(src/scripts/cp_int_test_config.sh)>>
   - run:
       name: Copy api functional config file
-      command: cp app/code/Ebizmarts/SagePaySuite/phpunit_config_functional.xml dev/tests/api-functional/phpunit.xml
+      command: <<include(src/scripts/cp_api_func_test_config.sh)>>

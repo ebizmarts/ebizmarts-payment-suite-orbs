@@ -4,7 +4,7 @@ description: >
 steps:
   - run:
       name: libsodium Download
-      command: wget --quiet https://download.libsodium.org/libsodium/releases/libsodium-$LIBSODIUM_VERSION.tar.gz
+      command: <<include(src/scripts/download_libsodium.sh)>>
   - run:
       name: libsodium Uncompress tar file
       command: tar xvzf libsodium-$LIBSODIUM_VERSION.tar.gz

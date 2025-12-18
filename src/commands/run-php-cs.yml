@@ -7,10 +7,10 @@ steps:
       command: php -v
   - run:
       name: Composer require PHPCS and Magento coding standard
-      command: composer require --no-progress --prefer-dist --dev phpcsstandards/php_codesniffer:3.x-dev magento/magento-coding-standard=$SNIFFER_VERSION
+      command: <<include(src/scripts/install_phpcs.sh)>>
   - run:
       name: Set installed config paths
-      command: vendor/bin/phpcs --config-set installed_paths ../../magento/magento-coding-standard/
+      command: <<include(src/scripts/set_phpcs_config_paths.sh)>>
   - run:
      name: Run PHPCS
-     command: vendor/bin/phpcs --standard=Magento2,PSR1,PSR2 $MAGENTO_PATH/app/code/Ebizmarts/* --extensions=php,phtml --warning-severity=$SNIFFER_SEVERITY --ignore=".circleci/config.yml,*.xml"
+     command: <<include(src/scripts/run_phpcs.sh)>>

@@ -4,4 +4,4 @@ description: >
 steps:
   - run:
       name: Run API functional tests
-      command: $MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar -c $MAGENTO_PATH/dev/tests/api-functional/phpunit.xml
+      command: <<include(src/scripts/run_api_func_tests.sh)>>

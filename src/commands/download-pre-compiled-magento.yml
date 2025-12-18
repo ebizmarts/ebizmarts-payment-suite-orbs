@@ -8,4 +8,6 @@ parameters:
 steps:
   - run:
       name: Download Magento from ebizmartsbackup S3
-      command: wget --quiet https://ebizmartsbackup.s3.amazonaws.com/Magento<< parameters.version >>-PreCompiled.tar.gz
+      environment:
+        PARAM_VERSION: << parameters.version >>
+      command: <<include(src/scripts/ebiz_mage_backup.sh)>>

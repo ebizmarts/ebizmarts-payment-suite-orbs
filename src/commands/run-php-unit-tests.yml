@@ -9,4 +9,6 @@ parameters:
 steps:
   - run:
       name: Run unit tests
-      command: $MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar -c $MAGENTO_PATH/dev/tests/unit/phpunit.xml << parameters.coverage >>
+      environment:
+        PARAM_COVERAGE: << parameters.coverage >>
+      command: <<include(src/scripts/run_php_unit_tests.sh)>>
