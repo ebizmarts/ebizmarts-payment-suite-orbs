@@ -1,0 +1,47 @@
+description: >
+  Install system dependencies
+
+parameters:
+  extensions-to-install:
+    type: string
+    default: "bcmath gd intl mcrypt opcache pdo_mysql soap xsl zip"
+  libraries-to-install:
+    type: string
+    default: "libicu-dev libjpeg-dev libmcrypt-dev libpng-dev libwebp-dev libxml2-dev libxpm-dev libxslt-dev libz-dev libzip-dev zlib1g-dev"
+steps:
+  - run:
+      name: Update linux packages
+      command: sudo apt-get update -qq || sudo apt-get update -qq
+  - run:
+      name: Set PHP Memory to 1G
+      command: sudo sh -c 'echo "memory_limit = 1G" > /usr/local/etc/php/conf.d/memory.ini'
+  - run:
+      name: Install required system libraries
+      command: sudo apt-get install -qq -y g++ << parameters.libraries-to-install >>
+  - run:
+      name: Configure PHP extensions
+      command: sudo docker-php-ext-configure intl && sudo docker-php-ext-configure gd --with-png-dir=/usr/include --with-jpeg-dir=/usr/include
+  - run:
+      name: Install PHP extensions
+      command: sudo docker-php-ext-install << parameters.extensions-to-install >>
+  - run:
+      name: Install MariaDB client
+      command: sudo apt-get install -qq -y mariadb-client
+  - run:
+      name: Add magento2.dev to hosts file
+      command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
+  - run:
+      name: Download Magento 2 web server configuration file
+      command: wget --quiet $MAGENTO_WEB_SERVER_CONF
+  - run:
+      name: Copy Magento 2 web server configuration file
+      command: sudo cp magento2.conf /etc/apache2/sites-available/ && sudo a2ensite magento2.conf
+  - run:
+      name: Run sed on apache environment vars
+      command: sudo sed -i 's/www-data/circleci/g' /etc/apache2/envvars
+  - run:
+      name: Restart apache
+      command: sudo service apache2 restart
+  - run:
+      name: Import database dump
+      command: mysql -h 127.0.0.1 -umagento -pmagento circle_test < ~/magento2/circle_test.sql

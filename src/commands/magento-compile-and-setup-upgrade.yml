@@ -1,0 +1,19 @@
+description: >
+  Setup upgrade and compile Magento
+
+steps:
+  - run:
+      name: Run Magento DI Compile
+      command: cd $MAGENTO_PATH && bin/magento setup:di:compile -q
+  - run:
+      name: Run Magento Setup Upgrade
+      command: cd $MAGENTO_PATH && bin/magento setup:upgrade -q
+  - run:
+      name: Set write permissions on var directory
+      command: chmod -R 777 $MAGENTO_PATH/var
+  - run:
+      name: Run Magento Cache Flush
+      command: $MAGENTO_PATH/bin/magento cache:flush -q
+  - run:
+      name: Disable Magento's cache
+      command: $MAGENTO_PATH/bin/magento cache:disable -q

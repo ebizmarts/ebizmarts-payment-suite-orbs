@@ -1,0 +1,12 @@
+description: >
+  Run unit tests
+
+parameters:
+  coverage:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Run unit tests
+      command: $MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar -c $MAGENTO_PATH/dev/tests/unit/phpunit.xml << parameters.coverage >>

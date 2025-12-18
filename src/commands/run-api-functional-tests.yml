@@ -1,0 +1,7 @@
+description: >
+  Setup upgrade and compile Magento
+
+steps:
+  - run:
+      name: Run API functional tests
+      command: $MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar -c $MAGENTO_PATH/dev/tests/api-functional/phpunit.xml

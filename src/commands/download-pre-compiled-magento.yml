@@ -1,0 +1,11 @@
+description: >
+  Download pre-compiled Magento from S3
+
+parameters:
+  version:
+    type: string
+    default: ""
+steps:
+  - run:
+      name: Download Magento from ebizmartsbackup S3
+      command: wget --quiet https://ebizmartsbackup.s3.amazonaws.com/Magento<< parameters.version >>-PreCompiled.tar.gz
