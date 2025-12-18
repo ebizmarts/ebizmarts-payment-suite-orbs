@@ -9,7 +9,7 @@ steps:
       name: Download Magento from ebizmartsbackup S3
       environment:
         PARAM_VERSION: << parameters.version >>
-      command: << include(src/scripts/download_magento_from_ebizmarts_backup.sh)>>
+      command: <<include(src/scripts/ebiz_mage_backup.sh)>>
   - run:
       name: Rename file to use download-tools
       command: mv Magento<< parameters.version >>-PreCompiled-NoSampleData.tar.gz Magento<< parameters.version >>-PreCompiled.tar.gz
