@@ -9,9 +9,9 @@ steps:
       name: Download Magento from ebizmartsbackup S3 with no sample data
       environment:
         PARAM_VERSION: << parameters.version >>
-      command: <<include(src/scripts/ebiz_mage_backup_nosd.sh)>>
+      command: <<include(scripts/ebiz_mage_backup_nosd.sh)>>
   - run:
       name: Rename file to use download-tools
       environment:
         PARAM_VERSION: << parameters.version >>
-      command: <<include(src/scripts/rename_file.sh)>>
+      command: <<include(scripts/rename_file.sh)>>

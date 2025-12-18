@@ -11,4 +11,4 @@ steps:
       name: Run unit tests
       environment:
         PARAM_COVERAGE: << parameters.coverage >>
-      command: <<include(src/scripts/run_php_unit_tests.sh)>>
+      command: <<include(scripts/run_php_unit_tests.sh)>>
