@@ -38,7 +38,7 @@ steps:
       command: <<include(scripts/cp_api_test_data.sh)>>
   - run:
       name: Copy php unit config file
-      command: <<include(scripts/copy_phpunit_config.sh)>>
+      command: <<include(scripts/cp_php_unit_config.sh)>>
   - run:
       name: Copy integration tests config file
       command: <<include(scripts/cp_int_test_config.sh)>>
