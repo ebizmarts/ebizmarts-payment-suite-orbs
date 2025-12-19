@@ -1,0 +1,2 @@
+#!/bin/bash
+cp -r app/code/Ebizmarts/SagePaySuite/Test/Api/_files/* dev/tests/integration/testsuite/Ebizmarts/SagePaySuite/_files

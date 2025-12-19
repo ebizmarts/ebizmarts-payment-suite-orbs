@@ -1,0 +1,7 @@
+description: >
+  Remove libsodium embedded in image and install latest
+
+steps:
+  - run:
+      name: Remove old libsodium and install latest (compiled)
+      command: <<include(scripts/reinstall_libsodium.sh)>>

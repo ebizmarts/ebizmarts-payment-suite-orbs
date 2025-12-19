@@ -1,0 +1,17 @@
+description: >
+  Download pre-compiled Magento from S3
+parameters:
+  version:
+    type: string
+    default: ""
+steps:
+  - run:
+      name: Download Magento from ebizmartsbackup S3 with no sample data
+      environment:
+        PARAM_VERSION: << parameters.version >>
+      command: <<include(scripts/ebiz_mage_backup_nosd.sh)>>
+  - run:
+      name: Rename file to use download-tools
+      environment:
+        PARAM_VERSION: << parameters.version >>
+      command: <<include(scripts/rename_file.sh)>>

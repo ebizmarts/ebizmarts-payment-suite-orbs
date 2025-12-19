@@ -1,0 +1,13 @@
+description: >
+  Download pre-compiled Magento from S3
+
+parameters:
+  version:
+    type: string
+    default: ""
+steps:
+  - run:
+      name: Download Magento from ebizmartsbackup S3
+      environment:
+        PARAM_VERSION: << parameters.version >>
+      command: <<include(scripts/ebiz_mage_backup.sh)>>

@@ -1,0 +1,7 @@
+description: >
+  Setup upgrade and compile Magento
+
+steps:
+  - run:
+      name: Run API functional tests
+      command: <<include(scripts/run_api_func_tests.sh)>>

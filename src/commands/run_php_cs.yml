@@ -1,0 +1,16 @@
+description: >
+  Install PHPCS dependencies and run
+
+steps:
+  - run:
+      name: Check PHP version
+      command: php -v
+  - run:
+      name: Composer require PHPCS and Magento coding standard
+      command: <<include(scripts/install_phpcs.sh)>>
+  - run:
+      name: Set installed config paths
+      command: <<include(scripts/set_phpcs_config_paths.sh)>>
+  - run:
+      name: Run PHPCS
+      command: <<include(scripts/run_phpcs.sh)>>

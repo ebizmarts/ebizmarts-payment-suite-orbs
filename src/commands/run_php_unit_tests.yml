@@ -1,0 +1,14 @@
+description: >
+  Run unit tests
+
+parameters:
+  coverage:
+    type: string
+    default: ""
+
+steps:
+  - run:
+      name: Run unit tests
+      environment:
+        PARAM_COVERAGE: << parameters.coverage >>
+      command: <<include(scripts/run_php_unit_tests.sh)>>
