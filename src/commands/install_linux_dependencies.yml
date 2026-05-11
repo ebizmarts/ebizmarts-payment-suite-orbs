@@ -11,6 +11,9 @@ parameters:
   gd_configure_flags:
     type: string
     default: "--with-png-dir=/usr/include --with-jpeg-dir=/usr/include"
+  import_db:
+    type: boolean
+    default: true
 steps:
   - run:
       name: Update linux packages
@@ -51,6 +54,9 @@ steps:
   - run:
       name: Restart apache
       command: sudo service apache2 restart
-  - run:
-      name: Import database dump
-      command: <<include(scripts/import_db_dump.sh)>>
+  - when:
+      condition: << parameters.import_db >>
+      steps:
+        - run:
+            name: Import database dump
+            command: <<include(scripts/import_db_dump.sh)>>
