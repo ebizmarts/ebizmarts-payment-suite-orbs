@@ -8,6 +8,9 @@ parameters:
   libraries_to_install:
     type: string
     default: "libicu-dev libjpeg-dev libmcrypt-dev libpng-dev libwebp-dev libxml2-dev libxpm-dev libxslt-dev libz-dev libzip-dev zlib1g-dev"
+  gd_configure_flags:
+    type: string
+    default: "--with-png-dir=/usr/include --with-jpeg-dir=/usr/include"
 steps:
   - run:
       name: Update linux packages
@@ -22,6 +25,8 @@ steps:
       command: <<include(scripts/install_sys_libs.sh)>>
   - run:
       name: Configure PHP extensions
+      environment:
+        PARAM_GD_CONFIGURE_FLAGS: << parameters.gd_configure_flags >>
       command: <<include(scripts/config_php_exts.sh)>>
   - run:
       name: Install PHP extensions
