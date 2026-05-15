@@ -28,9 +28,7 @@ steps:
       command: <<include(scripts/install_sys_libs.sh)>>
   - run:
       name: Configure PHP extensions
-      environment:
-        PARAM_GD_CONFIGURE_FLAGS: << parameters.gd_configure_flags >>
-      command: <<include(scripts/config_php_exts.sh)>>
+      command: sudo -E docker-php-ext-configure intl && sudo -E docker-php-ext-configure gd << parameters.gd_configure_flags >>
   - run:
       name: Install PHP extensions
       environment:
