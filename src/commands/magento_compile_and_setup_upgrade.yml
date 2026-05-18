@@ -8,7 +8,7 @@ parameters:
 steps:
   - run:
       name: Run Magento Setup Upgrade
-      command: cd $MAGENTO_PATH && bin/magento setup:upgrade -q
+      command: cd $MAGENTO_PATH && bin/magento setup:upgrade
   - run:
       name: Run Magento DI Compile
       command: cd $MAGENTO_PATH && bin/magento setup:di:compile -q
