@@ -17,7 +17,7 @@ parameters:
 steps:
   - run:
       name: Update linux packages
-      command: sudo apt-get update -qq || sudo apt-get update -qq
+      command: sudo apt-get update || sudo apt-get update
   - run:
       name: Set PHP Memory to 1G
       command: <<include(scripts/set_memory_limit_1g.sh)>>
@@ -36,7 +36,7 @@ steps:
       command: <<include(scripts/install_php_exts.sh)>>
   - run:
       name: Install MariaDB client
-      command: sudo apt-get install -qq -y mariadb-client
+      command: sudo apt-get install -y mariadb-client
   - run:
       name: Add magento2.dev to hosts file
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
