@@ -1,3 +1,4 @@
 #!/bin/bash
-PARAM=$(circleci env subst "${PARAM_COVERAGE}")
-"$MAGENTO_PATH"/phpunit-"$PHP_UNIT_VERSION".phar -c "$MAGENTO_PATH"/dev/tests/unit/phpunit.xml "$PARAM"
+COVERAGE=$(circleci env subst "${PARAM_COVERAGE}")
+PHPUNIT_BIN=$(circleci env subst "${PARAM_PHPUNIT_BIN}")
+$PHPUNIT_BIN -c "$MAGENTO_PATH"/dev/tests/unit/phpunit.xml $COVERAGE

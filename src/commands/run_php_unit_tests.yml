@@ -5,10 +5,14 @@ parameters:
   coverage:
     type: string
     default: ""
+  phpunit_bin:
+    type: string
+    default: "$MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar"
 
 steps:
   - run:
       name: Run unit tests
       environment:
         PARAM_COVERAGE: << parameters.coverage >>
+        PARAM_PHPUNIT_BIN: << parameters.phpunit_bin >>
       command: <<include(scripts/run_php_unit_tests.sh)>>
