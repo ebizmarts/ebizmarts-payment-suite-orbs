@@ -1,16 +1,43 @@
 description: >
   Install PHPCS dependencies and run
 
+parameters:
+  phpcs_install_strategy:
+    type: enum
+    enum: ["composer-require", "create-project"]
+    default: "composer-require"
+  severity:
+    type: string
+    default: "$SNIFFER_SEVERITY"
+  ignore:
+    type: string
+    default: ".circleci/config.yml,*.xml"
+
 steps:
   - run:
       name: Check PHP version
       command: php -v
-  - run:
-      name: Composer require PHPCS and Magento coding standard
-      command: <<include(scripts/install_phpcs.sh)>>
-  - run:
-      name: Set installed config paths
-      command: <<include(scripts/set_phpcs_config_paths.sh)>>
+  - when:
+      condition:
+        equal: ["composer-require", << parameters.phpcs_install_strategy >>]
+      steps:
+        - run:
+            name: Composer require PHPCS and Magento coding standard
+            command: <<include(scripts/install_phpcs.sh)>>
+        - run:
+            name: Set installed config paths
+            command: <<include(scripts/set_phpcs_config_paths.sh)>>
+  - when:
+      condition:
+        equal: ["create-project", << parameters.phpcs_install_strategy >>]
+      steps:
+        - run:
+            name: Composer create-project magento-coding-standard
+            command: composer create-project --no-progress magento/magento-coding-standard "$HOME"/vendor
   - run:
       name: Run PHPCS
+      environment:
+        PARAM_INSTALL_STRATEGY: << parameters.phpcs_install_strategy >>
+        PARAM_SEVERITY: << parameters.severity >>
+        PARAM_IGNORE: << parameters.ignore >>
       command: <<include(scripts/run_phpcs.sh)>>
