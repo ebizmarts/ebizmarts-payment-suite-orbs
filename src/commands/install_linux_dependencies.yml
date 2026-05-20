@@ -42,7 +42,7 @@ steps:
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
   - run:
       name: Download Magento 2 web server configuration file
-      command: wget --quiet $MAGENTO_WEB_SERVER_CONF
+      command: wget $MAGENTO_WEB_SERVER_CONF
   - run:
       name: Copy Magento 2 web server configuration file
       command: <<include(scripts/cp_apache_config.sh)>>
