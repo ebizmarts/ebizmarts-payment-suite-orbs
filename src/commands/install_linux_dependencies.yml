@@ -8,10 +8,16 @@ parameters:
   libraries_to_install:
     type: string
     default: "libicu-dev libjpeg-dev libmcrypt-dev libpng-dev libwebp-dev libxml2-dev libxpm-dev libxslt-dev libz-dev libzip-dev zlib1g-dev"
+  gd_configure_flags:
+    type: string
+    default: "--with-png-dir=/usr/include --with-jpeg-dir=/usr/include"
+  import_db:
+    type: boolean
+    default: true
 steps:
   - run:
       name: Update linux packages
-      command: sudo apt-get update -qq || sudo apt-get update -qq
+      command: sudo apt-get update || sudo apt-get update
   - run:
       name: Set PHP Memory to 1G
       command: <<include(scripts/set_memory_limit_1g.sh)>>
@@ -22,7 +28,7 @@ steps:
       command: <<include(scripts/install_sys_libs.sh)>>
   - run:
       name: Configure PHP extensions
-      command: <<include(scripts/config_php_exts.sh)>>
+      command: sudo -E docker-php-ext-configure intl && sudo -E docker-php-ext-configure gd << parameters.gd_configure_flags >>
   - run:
       name: Install PHP extensions
       environment:
@@ -30,13 +36,13 @@ steps:
       command: <<include(scripts/install_php_exts.sh)>>
   - run:
       name: Install MariaDB client
-      command: sudo apt-get install -qq -y mariadb-client
+      command: sudo apt-get install -y mariadb-client
   - run:
       name: Add magento2.dev to hosts file
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
   - run:
       name: Download Magento 2 web server configuration file
-      command: wget --quiet $MAGENTO_WEB_SERVER_CONF
+      command: wget $MAGENTO_WEB_SERVER_CONF
   - run:
       name: Copy Magento 2 web server configuration file
       command: <<include(scripts/cp_apache_config.sh)>>
@@ -46,6 +52,9 @@ steps:
   - run:
       name: Restart apache
       command: sudo service apache2 restart
-  - run:
-      name: Import database dump
-      command: <<include(scripts/import_db_dump.sh)>>
+  - when:
+      condition: << parameters.import_db >>
+      steps:
+        - run:
+            name: Import database dump
+            command: <<include(scripts/import_db_dump.sh)>>

@@ -5,10 +5,13 @@ parameters:
   coverage:
     type: string
     default: ""
+  phpunit_bin:
+    type: string
+    default: "$MAGENTO_PATH/phpunit-$PHP_UNIT_VERSION.phar"
 
 steps:
   - run:
       name: Run unit tests
-      environment:
-        PARAM_COVERAGE: << parameters.coverage >>
-      command: <<include(scripts/run_php_unit_tests.sh)>>
+      command: |
+        chmod -R 777 "$MAGENTO_PATH"/var
+        << parameters.phpunit_bin >> -c "$MAGENTO_PATH"/dev/tests/unit/phpunit.xml << parameters.coverage >>

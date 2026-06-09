@@ -4,13 +4,13 @@ description: >
 steps:
   - run:
       name: Install mariadb-client
-      command: sudo apt-get install --allow-unauthenticated -qq -y mariadb-client
+      command: sudo apt-get install --allow-unauthenticated -y mariadb-client
   - run:
       name: Add magento2.dev to hosts file
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
   - run:
       name: Download Magento 2 web server configuration file
-      command: wget --quiet $MAGENTO_WEB_SERVER_CONF
+      command: wget $MAGENTO_WEB_SERVER_CONF
   - run:
       name: Copy Magento 2 web server configuration file
       command: sudo cp magento2.conf /etc/apache2/sites-available/ && sudo a2ensite magento2.conf
