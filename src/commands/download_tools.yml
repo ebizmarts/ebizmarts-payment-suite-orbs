@@ -28,8 +28,13 @@ steps:
   - run:
       name: Set bin/magento as executable
       command: chmod +x bin/magento
-  - checkout:
-      path: app/code/Ebizmarts/SagePaySuite
+  - run:
+      name: Checkout module source over HTTPS (no SSH deploy key)
+      command: |
+        git clone "https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git" app/code/Ebizmarts/SagePaySuite
+        git -C app/code/Ebizmarts/SagePaySuite checkout --force "$CIRCLE_SHA1"
+        # scrub the token so it is not persisted into the workspace .git/config
+        git -C app/code/Ebizmarts/SagePaySuite remote set-url origin "https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
   - run:
       name: Create folder for Opayo
       command: <<include(scripts/create_opayo_folder.sh)>>
