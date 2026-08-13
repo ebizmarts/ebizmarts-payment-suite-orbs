@@ -41,11 +41,8 @@ steps:
       name: Add magento2.dev to hosts file
       command: echo 127.0.0.1 magento2.dev | sudo tee -a /etc/hosts
   - run:
-      name: Download Magento 2 web server configuration file
-      command: wget $MAGENTO_WEB_SERVER_CONF
-  - run:
-      name: Copy Magento 2 web server configuration file
-      command: <<include(scripts/cp_apache_config.sh)>>
+      name: Install Magento 2 web server configuration file
+      command: <<include(scripts/write_apache_config.sh)>>
   - run:
       name: Run sed on apache environment vars
       command: sudo sed -i 's/www-data/circleci/g' /etc/apache2/envvars
