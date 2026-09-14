@@ -22,9 +22,7 @@ steps:
   - run:
       name: Delete old code
       command: rm -rf app/code/Ebizmarts
-  - run:
-      name: Configure Composer auth for repo.magento.com
-      command: <<include(scripts/configure_composer_auth.sh)>>
+  - configure_composer_auth
   - run:
       name: Set bin/magento as executable
       command: chmod +x bin/magento

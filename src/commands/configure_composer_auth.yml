@@ -1,0 +1,24 @@
+description: >
+  Configure Composer authentication for repo.magento.com using the
+  MAGENTO_REPO_USERNAME / MAGENTO_REPO_PASSWORD context variables
+
+parameters:
+  verify:
+    type: boolean
+    default: false
+    description: >
+      Also assert the credentials authenticate against repo.magento.com
+      (GET packages.json must return 200; an anonymous request gets 401).
+      Catches an unrotated or wrongly-populated context that would otherwise
+      leave the build green.
+
+steps:
+  - run:
+      name: Configure Composer auth for repo.magento.com
+      command: <<include(scripts/configure_composer_auth.sh)>>
+  - when:
+      condition: << parameters.verify >>
+      steps:
+        - run:
+            name: Verify Composer auth against repo.magento.com
+            command: <<include(scripts/verify_composer_auth.sh)>>
